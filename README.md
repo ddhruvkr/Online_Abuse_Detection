@@ -4,24 +4,39 @@ UPDATE:
 Results when using Glove+Elmo embeddings with the BiRNN model. Just glove performed worse than this. Did not tune the embeddings. All other parameters were kept as same.
 
 W-Tox:
+
 minority class
+
 p, r, f
+
 83.55 81.31 82.41
+
 overall f1 score
+
 90.26
 
 W-At
+
 minority class
+
 p, r, f1
+
 83.13 77.75 80.35
+
 overall f1 score
+
 88.88
 
 W-Ag
+
 minority class
+
 p, r, f1
+
 82.7 76.07 79.25
+
 overall f1 score
+
 88.12
 
 
