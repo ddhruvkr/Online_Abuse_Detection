@@ -2,7 +2,7 @@ Code for the paper "Online abuse detection: the value of preprocessing and neura
 
 UPDATE:
 
-Results when using Glove+Elmo embeddings with the baseline BiRNN model. As expected these improve the performance than when using just Glove Embeddings (which are reported in the paper). Using only Elmo embeddings performed worse. Embeddings were not tuned. All other parameters were kept as same. Thus, suggest using these embeddings for the future.
+Results when using Glove+Elmo embeddings with the baseline BiRNN model. As expected, these improve the performance when compared to using just Glove embeddings and give higher scores than what are reported in the paper. Using only Elmo embeddings performed worse. Embeddings were not tuned. All other parameters were kept as same. Thus, suggest using these embeddings for the future.
 
 Dataset | Embedding | Minority P | Minority R | Minority F1 | Overall F1 
 --- | --- | --- | --- |--- |--- 
