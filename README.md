@@ -17,7 +17,7 @@ Put the tsv dataset files inside Data/Wikipedia/toxicity (attack, aggression)
 
 Also create a folder structure Embeddings/Glove/ outside this folder to have the embeddings file. 
 
-The code can be run with the following command
+The code can be run with the following commands when using only the Glove embeddings. Replace main.py with main_elmo.py when using Glove+Elmo embeddings.
 
 ```
 python main.py -embedding glove -dataset toxicity -emb_dim=300 -hidden_dim=150 -model CoAttn -lr=0.001 -epochs=3 -lstm_size=1 -batch_size=256 -sequence 175 -dropout_prob=0.1 -file_extension demo
