@@ -13,8 +13,9 @@ W-At | Glove+Elmo(256) | 84.02 | 75.84 | 79.72 | 88.64
 W-Ag | Glove+Elmo(1024) | 82.7 | 76.07 | 79.25 | 88.21
 W-Ag | Glove+Elmo(256) | 82.82 | 74.92 | 78.67 | 87.91
 
-Put the tsv dataset files inside Data/Wikipedia/
-Also create a folder structure Embeddings/Glove/ outside this folder to have the embeddings file and 
+Put the tsv dataset files inside Data/Wikipedia/toxicity (attack, aggression)
+
+Also create a folder structure Embeddings/Glove/ outside this folder to have the embeddings file. 
 
 The code can be run with the following command
 
