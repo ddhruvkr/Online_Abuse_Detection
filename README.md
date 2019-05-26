@@ -27,8 +27,19 @@ python main.py -embedding glove -dataset attack -emb_dim=300 -hidden_dim=150 -mo
 python main.py -embedding glove -dataset aggression -emb_dim=300 -hidden_dim=150 -model Attn -lr=0.001 -epochs=3 -lstm_size=1 -batch_size=200 -sequence 175 -dropout_prob=0.1 -file_extension demo
 ```
 
-The dataset parameter can have values 'toxicity', 'attack' and 'aggression' representing different datasets.
-The model parameter can have values 'BiRNN', 'Attn', 'CoAttn' representing different models.
+Requirements:
+
+> Pytorch 1.0
+
+> Keras (Tensorflow 1.10, Only using it for padding, will remove this dependency)
+
+> Ekphrasis
+
+> mosestokenizer
+
+> sklearn
+
+> nltk
 
 TODO:
 1) Still using Keras functions for padding. Replace them with Pytorch function.
