@@ -1,7 +1,8 @@
 Code for the paper "Online abuse detection: the value of preprocessing and neural attention models", in NAACL workshop on Computational Approaches to Subjectivity, Sentiment & Social Media Analysis (WASSA), Jun 2019
 
 UPDATE:
-Results when using Glove+Elmo embeddings with the BiRNN model. Just glove performed worse than this. Did not tune the embeddings. All other parameters were kept as same.
+
+Results when using Glove+Elmo embeddings with the baseline BiRNN model. As expected these improve the performance than when using just Glove Embeddings (which are reported in the paper). Using only Elmo embeddings performed worse. Embeddings were not tuned. All other parameters were kept as same. Thus, suggest using these embeddings for the future.
 
 Dataset | Embedding | Minority P | Minority R | Minority F1 | Overall F1 
 --- | --- | --- | --- |--- |--- 
@@ -29,4 +30,5 @@ The dataset parameter can have values 'toxicity', 'attack' and 'aggression' repr
 The model parameter can have values 'BiRNN', 'Attn', 'CoAttn' representing different models.
 
 TODO:
-1) Still using Keras functions for padding. Replace them with Pytorch
+1) Still using Keras functions for padding. Replace them with Pytorch function.
+2) Possibly try BERT (should perform even better).
