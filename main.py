@@ -63,11 +63,7 @@ if os.path.isfile('Data/Wikipedia/' + dataset + '/x_train' + file_extension + '.
 	print("loaded train features")
 else:
 	test_data_comments, test_data_rev_ids = get_data('test', dataset)
-	#train_data_comments, train_data_rev_ids = get_data('train', dataset)
-	#validation_data_comments, validation_data_rev_ids, test_data_comments, test_data_rev_ids = get_data_test_validation('test', dataset)
 	train_data_comments, train_data_rev_ids, validation_data_comments, validation_data_rev_ids = get_train_validation_data(dataset)
-	#train_data_comments, train_data_rev_ids = get_data('train', dataset)
-	#validation_data_comments, validation_data_rev_ids = get_data('dev', dataset)
 	np.save('Data/Wikipedia/' + dataset +'/train_data_rev_ids' + file_extension + '.npy', train_data_rev_ids)
 	np.save('Data/Wikipedia/' + dataset +'/test_data_rev_ids' + file_extension + '.npy', test_data_rev_ids)
 	np.save('Data/Wikipedia/' + dataset +'/validation_data_rev_ids' + file_extension + '.npy', validation_data_rev_ids)
@@ -191,13 +187,7 @@ print(len(embedding_weights))
 def get_f1_score(p, r):
 	return ((2.0*p*r)/(p+r))
 
-micro_f1 = []
-micro_pr = []
-micro_r = []
-macro_pr = []
-macro_r = []
-macro_f1 = []
-for i in range(5):
+for i in range(1):
 	print('Iteration: ', i)
 	p,r,f1,m_p,m_r,m_f1 = build_and_train_network(x_train, y_train, train_data_rev_ids, x_validate, y_validate, 
 		validation_data_rev_ids, x_test, y_test, test_data_rev_ids, 

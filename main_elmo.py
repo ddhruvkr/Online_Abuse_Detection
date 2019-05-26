@@ -170,7 +170,7 @@ micro_r = []
 macro_pr = []
 macro_r = []
 macro_f1 = []
-for i in range(5):
+for i in range(1):
 	print('Iteration: ', i)
 	print('Learning Rate ', lr_rate)
 	p,r,f1,m_p,m_r,m_f1 = build_and_train_network(x_train, y_train, x_train_glove, x_validate, y_validate, 

@@ -29,7 +29,7 @@ class IntraAttention(nn.Module):
 		embeddings = self.embedding(input_sequences)
 		#batch_size, max_sequence_length, embedding_length
 		s = self.bilinear_layer(embeddings)
-		#s = self.dot_product(embeddings)
+		#s = self.simplified_intra_attention_layer(embeddings)
 		#s = self.singular_intra_attention_layer(embeddings)
 		#s = self.multi_dimensional_intra_attention_layer(embeddings)
 		embeddings = embeddings.permute(1, 0, 2)
@@ -42,6 +42,7 @@ class IntraAttention(nn.Module):
 		return fc
 
 	def bilinear_layer(self, embeddings):
+		# (WEW)
 		max_sequence_length = embeddings.shape[1]
 		mask = torch.ones(max_sequence_length,max_sequence_length)
 		if self.is_cuda:
@@ -67,6 +68,7 @@ class IntraAttention(nn.Module):
 		return s
 
 	def simplified_intra_attention_layer(self, embeddings):
+		# (WW)
 		max_sequence_length = embeddings.shape[1]
 		mask = torch.ones(max_sequence_length,max_sequence_length)
 		if self.is_cuda:
@@ -87,29 +89,8 @@ class IntraAttention(nn.Module):
 		s = s.squeeze(1)
 		return s
 
-	def dot_product(self, embeddings):
-		max_sequence_length = embeddings.shape[1]
-		mask = torch.ones(max_sequence_length,max_sequence_length)
-		if self.is_cuda:
-			mask = mask.cuda()
-		mask = mask - torch.diag(torch.diag(mask))
-		s = torch.bmm(embeddings, embeddings.permute(0,2,1))
-		#(bts, max_sequence_length, max_sequence_length)
-		s = s*mask
-		#doing masking to make values where word pairs are same(i == j), zero
-		# do dot product instead of pooling
-		s = self.Wmy(s)
-		s = s.squeeze(2)
-		#(bts, max_sequence_length)
-		s = f.softmax(s, dim=1)
-		s = s.unsqueeze(dim=1)
-		#(bts, 1, max_sequence_length)
-		s = torch.bmm(s, embeddings)
-		#(bts, 1, max_sequence_length)(bts, max_sequence_length, embedding_length) = (bts, 1, embedding_length)
-		s = s.squeeze(1)
-		return s
-
 	def singular_intra_attention_layer(self, embeddings):
+		# from Tay paper on sarcasm detection
 		max_sequence_length = embeddings.shape[1]
 		batch_size = embeddings.shape[0]
 		embedding_dim = embeddings.shape[2]
@@ -165,6 +146,7 @@ class IntraAttention(nn.Module):
 		return s
 
 	def co_attention_layer(self, embeddings):
+		# model from BIDAF paper
 		max_sequence_length = embeddings.shape[1]
 		batch_size = embeddings.shape[0]
 		embedding_dim = embeddings.shape[2]
@@ -223,6 +205,7 @@ class IntraAttention(nn.Module):
 		return s
 
 	def multi_dimensional_intra_attention_layer(self, embeddings):
+		# from Tay paper on sarcasm detection
 		max_sequence_length = embeddings.shape[1]
 		batch_size = embeddings.shape[0]
 		embedding_dim = embeddings.shape[2]

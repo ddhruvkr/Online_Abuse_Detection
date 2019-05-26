@@ -29,10 +29,6 @@ class BiRNN(nn.Module):
 		embeddings_elmo = self.elmo(inp)
 		embeddings_elmo = embeddings_elmo['elmo_representations'][0]
 		#output: bts, max_sequence_length, embedding_length
-
-		#embeddings = torch.cat((embeddings, glove), dim=2)
-		#embeddings_elmo = embeddings_elmo.permute(1, 0, 2)
-
 		embeddings_glove = self.embedding(inp_glove)
 		#batch_size, max_sequence_length, embedding_length
 		embeddings = torch.cat((embeddings_glove, embeddings_elmo), dim=2)

@@ -9,7 +9,7 @@ class WordAttention(nn.Module):
 		super().__init__()
 		self.it = 60 # should be tuned
 		self.embedding = nn.Embedding(vocab_size, embedding_dim)
-		self.bilstms = nn.LSTM(embedding_dim, hidden_dim, num_layers = n_layers, bidirectional = True, dropout=dropout_prob)
+		self.bilstms = nn.GRU(embedding_dim, hidden_dim, num_layers = n_layers, bidirectional = True, dropout=dropout_prob)
 		self.Ww = nn.Linear(2*hidden_dim, self.it)
 		self.Uw = nn.Linear(self.it, 1, bias=False)
 		self.label = nn.Linear(hidden_dim*4, output_dim)
@@ -42,8 +42,8 @@ class WordAttention(nn.Module):
 	def attention_layer(self, output_bilstm):
 		u = self.Ww(output_bilstm)
 		#(2d, it)(bts, n, 2d) = (bts, n, it)
-		#u_tanh = torch.tanh(u)
-		u_tanh = f.relu(u)
+		u_tanh = torch.tanh(u)
+		#u_tanh = f.relu(u)
 		att = self.Uw(u_tanh)
 		#(it,1)(bts,n,it) = (bts, n, 1)
 		att = att.permute(0,2,1)

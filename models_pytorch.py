@@ -10,7 +10,6 @@ from torch.nn import functional as f
 from pytorch_models.BiRNN import BiRNN
 from pytorch_models.Attn import WordAttention
 from pytorch_models.CoAttn import IntraAttention
-from pytorch_models.RNN import RNN
 
 class Dataset(data.Dataset):
 	def __init__(self, x_train, y_train, x_train_rev_ids, is_cuda):
@@ -229,41 +228,26 @@ def build_and_train_network(x_train, y_train, x_train_rev_ids, x_validation, y_v
 		print('trying 2nd time')
 		model = model.to(device)
 	criterion = criterion.to(device)
-	macro_f1 = 0.0
-	macro_p = 0.0
-	macro_r = 0.0
 	validloss = 1000.0
 	validf1 = 0.0
 	validmf1 = 0.0
-	f1 = 0.0
-	r = 0.0
-	p = 0.0
 	for epoch in range(epochs):
 		train_loss, train_acc = train(model, train_iterator, optimizer, criterion, epoch)
 		print("validation accuracy")
 		valid_loss, valid_acc, val_r, val_p, val_f1, val_macro_r, val_macro_p, val_macro_f1 = evaluate(model, validation_iterator, criterion, model_name, False)
-		print("test accuracy")
-		test_loss, test_acc, test_r, test_p, test_f1, test_macro_r, test_macro_p, test_macro_f1 = evaluate(model, test_iterator, criterion, model_name, False)
 		#new_avg_f1 = (train_f1 + test_f1)/2.0
 		#since the validation set is very small compared to the test set just using the validation loss is unstable
 		if validloss >= valid_loss or (validf1 <= val_f1 and validmf1 <= val_macro_f1):
-			macro_f1 = test_macro_f1
-			macro_p = test_macro_p
-			macro_r = test_macro_r
 			validloss = valid_loss
 			validf1 = val_f1
 			validmf1 = val_macro_f1
-			p = test_p
-			r = test_r
-			f1 = test_f1
-			torch.save(model.state_dict(), 'IA.pt')
-			#model.load_state_dict(torch.load('IA.pt'))
-		#print(f'| Epoch: {epoch+1:02} | Train Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}% | Test Loss: {test_loss:.3f} | Test Acc: {test_acc*100:.2f}% |')
-		print(f'| Epoch: {epoch+1:02} | Train Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}% | Val. Loss: {valid_loss:.3f} | Val. Acc: {valid_acc*100:.2f}% | Test Loss: {test_loss:.3f} | Test Acc: {test_acc*100:.2f}% |')
-	print(round(macro_f1,2))
+			torch.save(model.state_dict(), 'model.pt')
+		print(f'| Epoch: {epoch+1:02} | Train Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}% | Val. Loss: {valid_loss:.3f} | Val. Acc: {valid_acc*100:.2f}% |')
+		#print(f'| Epoch: {epoch+1:02} | Train Loss: {train_loss:.3f} | Train Acc: {train_acc*100:.2f}% | Val. Loss: {valid_loss:.3f} | Val. Acc: {valid_acc*100:.2f}% | Test Loss: {test_loss:.3f} | Test Acc: {test_acc*100:.2f}% |')
 	model.load_state_dict(torch.load('model.pt'))
-	#test_loss, test_acc, test_r, test_p, test_f1, test_macro_r, test_macro_p, test_macro_f1 = evaluate(model, test_iterator, criterion, model_name, False)
-	return p, r, f1, macro_p, macro_r, macro_f1
+	print("test accuracy")
+	test_loss, test_acc, test_r, test_p, test_f1, test_macro_r, test_macro_p, test_macro_f1 = evaluate(model, test_iterator, criterion, model_name, False)
+	return test_p, test_r, test_f1, test_macro_p, test_macro_r, test_macro_f1
 
 def test(x_test, y_test, z, vocab, embedding_weights, 
 	word_sequence_length, emb_dim, hidden_dim, lr,  model, epochs, lstm_sizes, batch_size, 
