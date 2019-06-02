@@ -6,12 +6,21 @@ Results when using Glove+Elmo embeddings with the baseline BiRNN model. As expec
 
 Dataset | Embedding | Minority P | Minority R | Minority F1 | Overall F1 
 --- | --- | --- | --- |--- |--- 
-W-Tox | Glove+Elmo(1024) | 83.55 | 81.31 | 82.41 | 90.29
+W-Tox | Glove(300) | 83.49 | 78.69 | 81.02 | 89.47
+W-Tox (CoAttn) | Glove(300) | 83.67 | 79.42 | 81.49 | 89.76
+W-Tox | Elmo(1024) | 81.44 | 81.25 | 81.35 | 89.68
 W-Tox | Glove+Elmo(256) | 83.84 | 79.73 | 81.73 | 89.94
+W-Tox | Glove+Elmo(1024) | 83.55 | 81.31 | 82.41 | 90.29
+W-At | Glove(300) | 83.43 | 74.81 | 78.89 | 88.03
+W-At (CoAttn) | Glove(300) | 81.42 | 77.62 | 79.47 | 88.34
+W-At | Elmo(1024) | 82.35 | 76.45 | 79.29 | 88.27
+W-At | Glove+Elmo(256) | 84.02 | 75.84 | 79.72 | 88.71
 W-At | Glove+Elmo(1024) | 83.13 | 77.75 | 80.35 | 88.93
-W-At | Glove+Elmo(256) | 84.02 | 75.84 | 79.72 | 88.64
+W-Ag | Glove(300) | 82.32 | 73.37 | 77.59 | 87.22
+W-Ag (Attn) | Glove(300) | 81.57 | 75.13 | 78.22 | 87.49
+W-Ag | Elmo(1024) | 80.95 | 75.53 | 78.14 | 87.55
+W-Ag | Glove+Elmo(256) | 82.82 | 74.92 | 78.67 | 87.98
 W-Ag | Glove+Elmo(1024) | 82.7 | 76.07 | 79.25 | 88.21
-W-Ag | Glove+Elmo(256) | 82.82 | 74.92 | 78.67 | 87.91
 
 Put the tsv dataset files inside Data/Wikipedia/toxicity (attack, aggression)
 
