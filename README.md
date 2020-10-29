@@ -1,5 +1,24 @@
 Code for the paper "Online abuse detection: the value of preprocessing and neural attention models", in NAACL workshop on Computational Approaches to Subjectivity, Sentiment & Social Media Analysis (WASSA), Jun 2019
 
+Please cite this paper if you use our code or system output.
+
+```
+@inproceedings{kumar-etal-2019-online,
+    title = "Online abuse detection: the value of preprocessing and neural attention models",
+    author = "Kumar, Dhruv  and
+      Cohen, Robin  and
+      Golab, Lukasz",
+    booktitle = "Proceedings of the Tenth Workshop on Computational Approaches to Subjectivity, Sentiment and Social Media Analysis",
+    month = jun,
+    year = "2019",
+    address = "Minneapolis, USA",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/W19-1303",
+    doi = "10.18653/v1/W19-1303",
+    pages = "16--24",
+}
+```
+
 UPDATE:
 
 Results when using Glove+Elmo embeddings with the baseline BiRNN model. As expected, these improve the performance when compared to using just Glove embeddings and give higher scores than what are reported in the paper. Using only Elmo embeddings performed worse. Embeddings were not tuned. All other parameters were kept as same. Thus, suggest using these embeddings for the future.
